@@ -12,7 +12,7 @@ class Fibonacci
 		if($fibFrom && $fibTo) {
 			// Получение ряда Фибоначчи из кэша Redis или вычисление нового
 			if(!is_null($this->redis)) {
-				$fibArray = json_decode($this->redis->get($fibTo));
+				$fibArray = json_decode($this->redis->get($fibTo)) ?? $this->getFibArray($fibTo);
 				$this->redis->set($fibTo, json_encode($fibArray)); // Сохранение результата в кэш
 			} else {
 				$fibArray = $this->getFibArray($fibTo);
